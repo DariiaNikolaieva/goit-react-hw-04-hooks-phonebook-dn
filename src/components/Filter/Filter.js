@@ -1,12 +1,12 @@
-import React from "react";
 import PropTypes from "prop-types";
+
 import styles from "./Filter.module.css";
 
 const Filter = ({ filterValue, onFilter }) => {
   return (
     <form className={styles.form}>
       <label>
-        Find contacts by name{" "}
+        Find contacts by name
         <input
           type="text"
           className={styles.input}
@@ -19,8 +19,8 @@ const Filter = ({ filterValue, onFilter }) => {
 };
 
 Filter.propTypes = {
-  filterValue: PropTypes.string.isRequired,
-  onFilter: PropTypes.func.isRequired,
+  filterValue: PropTypes.string,
+  onFilter: PropTypes.func,
 };
 
 export default Filter;

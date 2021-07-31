@@ -1,39 +1,43 @@
-import React, { Component } from "react";
+import { useState } from "react";
+
 import styles from "./ContactForm.module.css";
 
-class ContactForm extends Component {
-  state = {
-    name: "",
-    number: "",
-  };
+export default function ContactForm({onSubmit}) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, number } = this.state;
     if (!name || !number) {
-      alert("Enter the name!");
+      alert('Enter the name!');
       return;
     }
-    this.props.onSubmit(this.state);
-    this.resetForm();
-  };
+    onSubmit(name, number);
+    resetForm();
+  }
 
-  handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
 
-  resetForm = () => {
-    this.setState({
-      name: "",
-      number: "",
-    });
-  };
+    switch (name) {
+      case "name":
+        setName(value);
+        break;
+      case "number":
+        setNumber(value);
+        break;
+      default:
+        return;
+    }
+  }
+  
+  const resetForm = () => {
+    setName('');
+    setNumber('');
+  }
 
-  render() {
-    const { name, number } = this.state;
-    return (
-      <form className={styles.form} onSubmit={this.handleSubmit}>
+   return (
+      <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.labelTitle}>
           Name:
           <input
@@ -41,7 +45,7 @@ class ContactForm extends Component {
             name="name"
             className={styles.input}
             value={name}
-            onChange={this.handleInputChange}
+            onChange={handleInputChange}
           />
         </label>
         <label className={styles.labelTitle}>
@@ -54,7 +58,7 @@ class ContactForm extends Component {
             title="The telephone number must contain numbers and may contain spaces, dashes, parentheses and may start with +"
             required
             value={number}
-            onChange={this.handleInputChange}
+            onChange={handleInputChange}
           />
         </label>
         <button type="submit" className={styles.button}>
@@ -62,7 +66,4 @@ class ContactForm extends Component {
         </button>
       </form>
     );
-  }
 }
-
-export default ContactForm;
