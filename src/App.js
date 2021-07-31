@@ -24,8 +24,8 @@ export default function App() {
     setContacts(prevState => [newContact, ...prevState]);
   };
   
-  const filterChange = ({target}) => {
-    setFilter(target.value);
+  const filterChange = (e) => {
+    setFilter(e.target.value);
   }
 
   const renderFilteredContacts = () => {
